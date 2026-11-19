@@ -6,7 +6,9 @@ A social fantasy adventure on floating islands, built with **Roblox Studio**, **
 
 ## First playable slice
 
-- A generated floating starter island with a safe spawn and a portal landmark.
+- A generated floating starter island with a safe spawn, grove, rune circle and portal landmark.
+- Three mana crystals that players can gather individually with a proximity prompt.
+- A server-owned session mana counter shown in the HUD.
 - Server-authoritative day/night clock.
 - Lightweight client HUD with world time and project status.
 - A small, modular codebase ready for dragons, exploration and player housing.
