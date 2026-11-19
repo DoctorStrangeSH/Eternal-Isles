@@ -1,0 +1,8 @@
+# Roblox / Rojo generated and local artifacts
+*.rbxl.lock
+*.rbxlx.lock
+.DS_Store
+.vscode/
+.idea/
+*.log
+*.tmp
