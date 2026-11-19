@@ -29,8 +29,9 @@ local function createCrystal(parent, index, position)
         position,
         Color3.fromRGB(93, 224, 235),
         Enum.Material.Neon,
-        Enum.PartType.Diamond
+        Enum.PartType.Block
     )
+    crystal.CFrame = CFrame.new(position) * CFrame.Angles(0, math.rad(45), math.rad(45))
     crystal.CanCollide = false
     crystal:SetAttribute("ManaReward", 5)
     CollectionService:AddTag(crystal, "ManaCrystal")
