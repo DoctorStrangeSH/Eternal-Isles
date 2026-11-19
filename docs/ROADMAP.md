@@ -4,12 +4,15 @@
 - [x] Rojo code layout and modular server/client/shared boundary.
 - [x] Server-built floating starter island (placeholder geometry).
 - [x] World clock with client HUD.
+- [x] Starter island landmarks and first mana-crystal resource nodes.
+- [x] Server-authoritative per-player mana collection with proximity prompts.
+- [x] HUD displays the player's current mana.
 - [ ] Studio smoke test with two players.
 - [ ] Check mobile HUD and spawn collisions.
 
 ## Milestone 1 — first fun loop
 - [ ] Functional portal to a second island, with a safe return.
-- [ ] One collectible resource and server-side inventory.
+- [x] One collectible resource and server-side session inventory (persistence still pending).
 - [ ] One exploration quest and clear reward.
 - [ ] Persistent player profile with safe DataStore handling.
 - [ ] One cooperative encounter, including mobile controls.
