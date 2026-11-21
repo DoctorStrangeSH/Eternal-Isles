@@ -20,6 +20,7 @@ function Flight.start(world, guide, sites, interact)
                 ride.character:PivotTo(CFrame.new(site.position + Vector3.yAxis*4))
                 player:SetAttribute("AtRookery", site.id == "rookery")
                 player:SetAttribute("AtWindIsle", site.id == "wind")
+                player:SetAttribute("AtObservatory", site.id == "observatory")
             end
             ride.root.Anchored = false
         end

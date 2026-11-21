@@ -91,12 +91,16 @@ local function bindMana()
             objective.Text = site and ("Посадка · " .. site .. " · F / Сесть") or "Лети к нефритовому насесту · Пробел выше, Ctrl ниже"
         elseif player:GetAttribute("Flying") then
             objective.Text = "Искра ловит восходящий поток…"
+        elseif player:GetAttribute("AtObservatory") then
+            objective.Text = stage >= 4 and "Линза изучена · Насест у края террасы." or "Обсерватория · Загляни в медное кольцо."
         elseif player:GetAttribute("AtWindIsle") then
-            objective.Text = stage == 3 and "Связь II · Насест открыл прямой путь домой." or "Остров Ветров · Найди золотистый янтарь."
+            objective.Text = stage >= 3 and "Связь II · Насест открыл прямой путь домой." or "Остров Ветров · Найди золотистый янтарь."
+        elseif stage >= 4 then
+            objective.Text = "Коллекция 3/3 · Истории находок записаны в журнал."
         elseif stage >= 2 then
-            objective.Text = player:GetAttribute("AtRookery") and "Позови Искру ещё раз для полёта на Остров Ветров." or (stage == 3 and "Связь II · Оседлай Искру на нефритовом насесте." or "Связь I · Вернись через портал к Искре.")
+            objective.Text = player:GetAttribute("AtRookery") and "Позови Искру ещё раз для полёта на Остров Ветров." or (stage >= 3 and "Оседлай Искру. Ищи медное кольцо слева от арки." or "Связь I · Вернись через портал к Искре.")
         elseif player:GetAttribute("FoundDawnScale") then
-            objective.Text = player:GetAttribute("AtRookery") and "Чешуя тёплая! Покажи её дракону у камня." or "Коллекция 1/2 · Отнеси чешую Искре через портал."
+            objective.Text = player:GetAttribute("AtRookery") and "Чешуя тёплая! Покажи её дракону у камня." or "Коллекция 1/3 · Отнеси чешую Искре через портал."
         elseif player:GetAttribute("AtRookery") then
             objective.Text = "Исследуй гнездовье. Что там блестит в траве?"
         elseif mana.Value >= config.PortalMana then
@@ -107,7 +111,7 @@ local function bindMana()
             objective.Text = "Собери кристаллы. Один спрятан в гроте у ручья."
         end
     end
-    for _, attribute in ipairs({"ManualFlight", "LandingSite", "Flying", "AtWindIsle", "TrailStage", "FoundDawnScale", "AtRookery", "Collected_ManaCrystal_3"}) do
+    for _, attribute in ipairs({"AtObservatory", "ManualFlight", "LandingSite", "Flying", "AtWindIsle", "TrailStage", "FoundDawnScale", "AtRookery", "Collected_ManaCrystal_3"}) do
         player:GetAttributeChangedSignal(attribute):Connect(updateMana)
     end
     mana.Changed:Connect(updateMana)

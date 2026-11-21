@@ -111,14 +111,52 @@ function Trail.start(beacon, spawn, interact)
     local perch = piece(world, "WindPerch", Vector3.new(5,2,5), origin+Vector3.new(0,3,9), amber, Enum.Material.Slate)
     local guide = dragon(world, beacon.Position + Vector3.new(10,0,-11))
 
+    local observatory = spawn.Position + Vector3.new(-69, 19, -107)
+    local slate = Color3.fromRGB(67, 63, 87)
+    local brass = Color3.fromRGB(185, 145, 78)
+    piece(world, "ObservatoryCrag", Vector3.new(38, 22, 35), observatory - Vector3.yAxis * 8,
+        slate, Enum.Material.Slate, Enum.PartType.Ball)
+    local terrace = piece(world, "ObservatoryTerrace", Vector3.new(4, 38, 35),
+        observatory, Color3.fromRGB(116, 119, 134), Enum.Material.Cobblestone, Enum.PartType.Cylinder)
+    terrace.Orientation = Vector3.new(0, 0, 90)
+    local instrument = observatory + Vector3.new(-4, 8, -5)
+    for index = 1, 12 do
+        local angle = index * math.pi / 6
+        local spoke = piece(world, "MeridianArc", Vector3.new(2.7, .45, .65),
+            instrument + Vector3.new(5 * math.sin(angle), 5 * math.cos(angle), 0),
+            brass, Enum.Material.Metal)
+        spoke.Orientation = Vector3.new(0, 0, -math.deg(angle))
+        spoke.CanCollide = false
+    end
+    for index, height in {9, 6, 12} do
+        local angle = index * math.pi / 3
+        local foot = observatory + Vector3.new(14 * math.cos(angle), 2, -13 * math.sin(angle))
+        piece(world, "BrokenPillar", Vector3.new(3, height, 3), foot + Vector3.yAxis * height/2,
+            slate, Enum.Material.Marble)
+    end
+    local lens = piece(world, "StarLens", Vector3.new(2.8, 2.8, 1.4), instrument,
+        Color3.fromRGB(154, 210, 255), Enum.Material.Neon, Enum.PartType.Ball)
+    local light = Instance.new("PointLight")
+    light.Color, light.Range, light.Brightness = lens.Color, 15, 1.5
+    light.Parent = lens
+    interact(lens, "Линза звездочёта", "Изучить", function(player)
+        if player:GetAttribute("AtObservatory") and (player:GetAttribute("TrailStage") or 0) >= 3 then
+            advance(player, 4)
+        end
+    end)
+
     require(script.Parent.FreeFlight).start(world, guide, {
         {id="home", label="Роща", position=spawn.Position + Vector3.new(14,-1,4)},
         {id="rookery", label="Гнездовье", position=beacon.Position + Vector3.new(-12,-2.5,-8)},
+        {id="observatory", label="Обсерватория", position=observatory + Vector3.new(7,2.5,5)},
         {id="wind", label="Остров Ветров", position=origin + Vector3.new(10,3,0)},
     }, interact)
 
     local function bind(player)
-        player.CharacterAdded:Connect(function() player:SetAttribute("AtWindIsle", false) end)
+        player.CharacterAdded:Connect(function()
+            player:SetAttribute("AtWindIsle", false)
+            player:SetAttribute("AtObservatory", false)
+        end)
         if not profileStore then return end
         task.spawn(function()
             local ok, stage = pcall(function() return profileStore:GetAsync(tostring(player.UserId)) end)
@@ -147,7 +185,7 @@ function Trail.start(beacon, spawn, interact)
     end)
     interact(perch, "Насест Искры", "В обратный полёт", function(player, character)
         if not player:GetAttribute("AtWindIsle") then return end
-        if player:GetAttribute("TrailStage") == 3 then
+        if (player:GetAttribute("TrailStage") or 0) >= 3 then
             fly(player, character, guide, spawn.Position + Vector3.yAxis*4, "home")
         else
             fly(player, character, guide, beacon.Position + Vector3.new(0,2,-5), "rookery")
