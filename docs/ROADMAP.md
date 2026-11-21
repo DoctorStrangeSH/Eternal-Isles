@@ -19,7 +19,8 @@
 - [x] In-game relic journal with discovery clues, collected lore and unlocked dragon routes.
 - [ ] Verify DawnTrail milestone saves on rejoin in a published test place.
 - [ ] Persistent player profile with safe DataStore handling.
-- [ ] One cooperative encounter, including mobile controls.
+- [x] West Cape signal fires: a shared timed encounter with a solo route and a sky beam to the observatory.
+- [ ] Verify the beacon encounter with two clients and touch controls.
 - [ ] First-time-user tutorial, skip option and session analytics.
 
 **Exit criteria:** five external testers can independently play for 10 minutes without intervention; no progress loss across rejoin tests.

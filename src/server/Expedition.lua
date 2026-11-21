@@ -24,6 +24,7 @@ end
 
 function Expedition.start(gate, beacon, scale, spawn)
     Trail.start(beacon, spawn, interact)
+    require(script.Parent.CapeBeacons).start(gate.Parent, interact)
     local function bindSpawn(player)
         player.RespawnLocation = spawn
         player.CharacterAdded:Connect(function()
