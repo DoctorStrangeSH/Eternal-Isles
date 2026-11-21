@@ -25,7 +25,7 @@
 **Exit criteria:** five external testers can independently play for 10 minutes without intervention; no progress loss across rejoin tests.
 
 ## Milestone 2 — unique identity
-- [ ] First dragon companion with distinct traversal ability.
+- [x] First dragon traversal ability: wind amber unlocks player-controlled flight between three island perches. Desktop input verified in Studio; touch and gamepad playtests pending.
 - [ ] Personal island customization and save/load.
 - [ ] Modular polished island art, sound and VFX.
 - [ ] Friends/co-op flow and social sharing.

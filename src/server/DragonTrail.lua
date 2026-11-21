@@ -111,6 +111,12 @@ function Trail.start(beacon, spawn, interact)
     local perch = piece(world, "WindPerch", Vector3.new(5,2,5), origin+Vector3.new(0,3,9), amber, Enum.Material.Slate)
     local guide = dragon(world, beacon.Position + Vector3.new(10,0,-11))
 
+    require(script.Parent.FreeFlight).start(world, guide, {
+        {id="home", label="Роща", position=spawn.Position + Vector3.new(14,-1,4)},
+        {id="rookery", label="Гнездовье", position=beacon.Position + Vector3.new(-12,-2.5,-8)},
+        {id="wind", label="Остров Ветров", position=origin + Vector3.new(10,3,0)},
+    }, interact)
+
     local function bind(player)
         player.CharacterAdded:Connect(function() player:SetAttribute("AtWindIsle", false) end)
         if not profileStore then return end
