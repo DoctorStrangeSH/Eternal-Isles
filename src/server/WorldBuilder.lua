@@ -95,6 +95,15 @@ function WorldBuilder.build()
         Color3.fromRGB(91, 74, 170), Enum.Material.Neon)
     createPart(world, "PortalTop", Vector3.new(15, 3, 3), portalBase.Position + Vector3.new(0, 19, 0),
         Color3.fromRGB(91, 74, 170), Enum.Material.Neon)
+    for index = 1, 3 do
+        local rune = createPart(world, "GateRune_" .. index, Vector3.new(1.8, 1.8, 3.4),
+            portalBase.Position + Vector3.new((index - 2) * 4, 19, 0),
+            Color3.fromRGB(49, 46, 63), Enum.Material.Slate)
+        rune.Orientation = Vector3.new(0, 0, 45)
+        rune.CanCollide = false
+        rune:SetAttribute("RuneIndex", index)
+        CollectionService:AddTag(rune, "ExpeditionGateRune")
+    end
     local portalLight = Instance.new("PointLight")
     portalLight.Color = Color3.fromRGB(151, 119, 255)
     portalLight.Brightness = 2

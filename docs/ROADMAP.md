@@ -7,6 +7,7 @@
 - [x] Starter island landmarks and first mana-crystal resource nodes.
 - [x] Server-authoritative per-player mana collection with proximity prompts.
 - [x] HUD displays the player's current mana.
+- [x] Three player-specific portal runes reflect crystal collection. Verified the spawn-to-crystals-to-portal route on foot in solo Studio Play.
 - [ ] Studio smoke test with two players.
 - [ ] Check mobile HUD and spawn collisions.
 
