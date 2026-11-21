@@ -45,6 +45,42 @@ local function createCrystal(parent, index, position)
     return crystal
 end
 
+local function buildWestCape(world, center)
+    local cape = center + Vector3.new(-93, 0, 5)
+    local slate = Color3.fromRGB(79, 78, 95)
+    createPart(world, "CapeCliff", Vector3.new(100, 36, 66), cape - Vector3.yAxis * 12,
+        slate, Enum.Material.Slate, Enum.PartType.Ball)
+    local meadow = createPart(world, "CapeMeadow", Vector3.new(11, 104, 68), cape,
+        Color3.fromRGB(91, 150, 101), Enum.Material.Grass, Enum.PartType.Cylinder)
+    meadow.Orientation = Vector3.new(0, 0, 90)
+
+    local trail = {
+        Vector3.new(-25, 6.1, 10), Vector3.new(-43, 6.1, 13), Vector3.new(-61, 6.1, 12),
+        Vector3.new(-78, 6, 9), Vector3.new(-95, 5.6, 6), Vector3.new(-112, 5.6, 0),
+        Vector3.new(-124, 5.6, -6),
+    }
+    for index = 2, #trail do
+        local a, b = center + trail[index-1], center + trail[index]
+        local segment = createPart(world, "HeatherTrail", Vector3.new(6, .24, (b-a).Magnitude+.3),
+            (a+b)/2, Color3.fromRGB(161, 144, 110), Enum.Material.Ground)
+        segment.CFrame = CFrame.lookAt(segment.Position, b)
+        segment.CanCollide = false
+    end
+
+    local deck = createPart(world, "WestLookout", Vector3.new(14, 1, 12),
+        center + Vector3.new(-125, 5.9, -9), Color3.fromRGB(125, 90, 60), Enum.Material.WoodPlanks)
+    for _, x in {-6, 6} do
+        createPart(world, "LookoutPost", Vector3.new(1, 4, 1), deck.Position + Vector3.new(x, 2, -5),
+            slate, Enum.Material.Slate)
+    end
+    local telescope = createPart(world, "LookoutScope", Vector3.new(5, 1.4, 1.4),
+        deck.Position + Vector3.new(0, 4, -3), Color3.fromRGB(187, 149, 85), Enum.Material.Metal, Enum.PartType.Cylinder)
+    local sight = CFrame.lookAt(telescope.Position, center + Vector3.new(-73, 35, -112))
+    telescope.CFrame = sight * CFrame.Angles(0, math.rad(90), 0)
+    createPart(world, "ScopeStand", Vector3.new(.8, 3.5, .8), telescope.Position - Vector3.yAxis*2,
+        slate, Enum.Material.Metal)
+end
+
 function WorldBuilder.build()
     local existing = workspace:FindFirstChild("EternalIslesWorld")
     if existing then
@@ -65,6 +101,8 @@ function WorldBuilder.build()
         center, Color3.fromRGB(103, 166, 105), Enum.Material.Grass, Enum.PartType.Cylinder)
 
     plateau.Orientation = Vector3.new(0, 0, 90)
+
+    buildWestCape(world, center)
 
     -- A broken stone ring gives the spawn a readable focal point.
     for index = 1, 8 do

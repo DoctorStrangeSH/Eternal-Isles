@@ -82,7 +82,7 @@ function Flight.start(world, guide, sites, interact)
             local p = ride.position + direction * 38 * math.min(dt,.1)
             local home = sites[1].position
             local offset = p - home
-            ride.position = home + Vector3.new(math.clamp(offset.X,-105,137),math.clamp(offset.Y,32,100),math.clamp(offset.Z,-255,96))
+            ride.position = home + Vector3.new(math.clamp(offset.X,-172,137),math.clamp(offset.Y,32,100),math.clamp(offset.Z,-255,96))
             local flat = Vector3.new(direction.X,0,direction.Z)
             if flat.Magnitude > .05 then ride.facing = flat.Unit end
             local pose = CFrame.lookAt(ride.position, ride.position + ride.facing)

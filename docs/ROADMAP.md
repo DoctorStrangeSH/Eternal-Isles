@@ -27,6 +27,8 @@
 ## Milestone 2 — unique identity
 - [x] First dragon traversal ability: wind amber unlocks player-controlled flight between island perches. Desktop input verified in Studio; touch and gamepad playtests pending.
 - [x] First optional free-flight discovery: land at the ruined observatory and study the stargazer’s lens for the relic journal.
+- [x] Starter island western cape: continuous walking trail and an observatory lookout.
+- [ ] Develop large multi-district islands with walking routes, aerial landmarks and mobile performance checks. Keep smaller discovery islands between them.
 - [ ] Personal island customization and save/load.
 - [ ] Modular polished island art, sound and VFX.
 - [ ] Friends/co-op flow and social sharing.
