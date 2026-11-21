@@ -152,6 +152,14 @@ function Trail.start(beacon, spawn, interact)
         {id="wind", label="Остров Ветров", position=origin + Vector3.new(10,3,0)},
     }, interact)
 
+    local greeter = dragon(world, spawn.Position + Vector3.new(0, 1, -8))
+    greeter.Name = "GroveIskra"
+    greeter:PivotTo(CFrame.lookAt(greeter.PrimaryPart.Position, spawn.Position))
+    interact(greeter.PrimaryPart, "Искра", "Погладить и полететь", function(player, character)
+        advance(player, 2)
+        fly(player, character, guide, origin + Vector3.new(0, 6, 2), "wind")
+    end)
+
     local function bind(player)
         player.CharacterAdded:Connect(function()
             player:SetAttribute("AtWindIsle", false)

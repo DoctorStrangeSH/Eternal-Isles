@@ -7,7 +7,7 @@ A social fantasy adventure on floating islands, built with **Roblox Studio**, **
 ## First playable slice
 
 - A generated floating starter island with a safe spawn, grove, rune circle and portal landmark.
-- A brook, waterfall and grotto on the starter island. Gather 15 mana to open the portal, find the golden scale in the rookery and return home. Show the scale to Iskra and call the dragon again for a guided flight to Wind Isle. Its amber relic unlocks a direct return flight. Mana lasts for the session. Expedition milestones use DataStore in published places.
+- Meet Iskra at spawn. Pet the dragon to receive a golden scale and ride to Wind Isle. Collect amber to unlock free flight. The grove crystals, grotto, portal and cape beacons are optional discoveries. Mana lasts for the session. Expedition milestones use DataStore in published places.
 - Three mana crystals that players can gather individually with a proximity prompt.
 - A server-owned session mana counter shown in the HUD.
 - Server-authoritative day/night clock.

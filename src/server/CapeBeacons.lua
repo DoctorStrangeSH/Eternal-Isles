@@ -1,6 +1,5 @@
 local CapeBeacons = {}
 
-local ARM_SECONDS = 15
 local SIGNAL_SECONDS = 20
 local dark = Color3.fromRGB(82, 109, 115)
 local green = Color3.fromRGB(119, 255, 210)
@@ -67,9 +66,8 @@ function CapeBeacons.start(world, interact)
     local link = beam(stones[1].socket, stones[2].socket, green)
     local signal = beam(stones[2].socket, target, gold)
     local armed, shining
-    local cycle = 0
 
-    local function display(seconds)
+    local function display()
         for i, stone in stones do
             local lit = shining or armed == i
             stone.gem.Color = shining and gold or (lit and green or dark)
@@ -77,7 +75,7 @@ function CapeBeacons.start(world, interact)
             if shining then
                 stone.caption.Text = "Луч ведёт к Обсерватории"
             elseif armed then
-                stone.caption.Text = (i == armed and "Нужен второй огонь" or "Зажги этот маяк") .. " · " .. seconds .. " с"
+                stone.caption.Text = i == armed and "Иди по лучу ко второму маяку" or "Зажги этот маяк"
             else
                 stone.caption.Text = "Огни мыса · Зажгите оба маяка"
             end
@@ -87,8 +85,6 @@ function CapeBeacons.start(world, interact)
     end
     local function activate(index)
         if shining or armed == index then return end
-        cycle += 1
-        local current = cycle
         if armed then
             armed, shining = nil, true
             display()
@@ -98,20 +94,7 @@ function CapeBeacons.start(world, interact)
             end)
         else
             armed = index
-            local deadline = time() + ARM_SECONDS
-            display(ARM_SECONDS)
-            task.spawn(function()
-                while current == cycle do
-                    local left = math.ceil(deadline - time())
-                    if left <= 0 then
-                        armed = nil
-                        display()
-                        return
-                    end
-                    display(left)
-                    task.wait(.25)
-                end
-            end)
+            display()
         end
     end
     for i, stone in stones do

@@ -14,12 +14,14 @@
 ## Milestone 1 — first fun loop
 - [x] Functional portal to a second island, with a safe return.
 - [x] One collectible resource and server-side session inventory (persistence still pending).
-- [x] First expedition: gather 15 mana, reach the rookery, collect the golden scale and return home.
+- [x] Dragon-first onboarding: one interaction at spawn grants a scale and starts a guided ride; the first screen presents one objective.
+- [ ] Observe five first-time players on touch devices: can they pet Iskra and find the amber without coaching? Record the first point of confusion and whether they choose another flight.
+- [x] Optional grove route: gather 15 mana, reach the rookery, collect the golden scale and return home.
 - [x] Befriend Iskra, ride to Wind Isle and unlock a direct flight home by collecting wind amber.
 - [x] In-game relic journal with discovery clues, collected lore and unlocked dragon routes.
 - [ ] Verify DawnTrail milestone saves on rejoin in a published test place.
 - [ ] Persistent player profile with safe DataStore handling.
-- [x] West Cape signal fires: a shared timed encounter with a solo route and a sky beam to the observatory.
+- [x] West Cape signal fires: a shared encounter without an activation deadline with a solo route and a sky beam to the observatory.
 - [ ] Verify the beacon encounter with two clients and touch controls.
 - [ ] First-time-user tutorial, skip option and session analytics.
 

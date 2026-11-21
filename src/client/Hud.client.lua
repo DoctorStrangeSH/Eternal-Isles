@@ -1,7 +1,6 @@
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-local config = require(ReplicatedStorage:WaitForChild("Shared"):WaitForChild("WorldConfig"))
 local player = Players.LocalPlayer
 local state = ReplicatedStorage:WaitForChild("WorldState")
 local phase = state:WaitForChild("Phase")
@@ -86,6 +85,12 @@ local function bindMana()
     local function updateMana()
         manaLabel.Text = string.format("✧ Мана: %d", mana.Value)
         local stage = player:GetAttribute("TrailStage") or 0
+        local firstMeeting = stage == 0 and mana.Value == 0 and not player:GetAttribute("AtRookery")
+        info.Visible = not firstMeeting
+        manaLabel.Visible = not firstMeeting
+        panel.OpenJournal.Visible = not firstMeeting
+        panel.Size = UDim2.fromOffset(280, firstMeeting and 84 or 126)
+        objective.Position = UDim2.fromOffset(10, firstMeeting and 40 or 85)
         if player:GetAttribute("ManualFlight") then
             local site = player:GetAttribute("LandingSite")
             objective.Text = site and ("Посадка · " .. site .. " · F / Сесть") or "Лети к нефритовому насесту · Пробел выше, Ctrl ниже"
@@ -94,24 +99,20 @@ local function bindMana()
         elseif player:GetAttribute("AtObservatory") then
             objective.Text = stage >= 4 and "Линза изучена · Насест у края террасы." or "Обсерватория · Загляни в медное кольцо."
         elseif player:GetAttribute("AtWindIsle") then
-            objective.Text = stage >= 3 and "Связь II · Насест открыл прямой путь домой." or "Остров Ветров · Найди золотистый янтарь."
+            objective.Text = stage >= 3 and "Связь II · Насест открыл прямой путь домой." or "Искра подарила тебе чешую! Подбери золотой янтарь."
         elseif stage >= 4 then
             objective.Text = "Коллекция 3/3 · Истории находок записаны в журнал."
         elseif stage >= 2 then
-            objective.Text = player:GetAttribute("AtRookery") and "Позови Искру ещё раз для полёта на Остров Ветров." or (stage >= 3 and "Оседлай Искру. Ищи медное кольцо слева от арки." or "Связь I · Вернись через портал к Искре.")
+            objective.Text = player:GetAttribute("AtRookery") and "Позови Искру ещё раз для полёта на Остров Ветров." or (stage >= 3 and "Оседлай Искру. Ищи медное кольцо слева от арки." or "Искра ждёт тебя в Роще.")
         elseif player:GetAttribute("FoundDawnScale") then
             objective.Text = player:GetAttribute("AtRookery") and "Чешуя тёплая! Покажи её дракону у камня." or "Коллекция 1/3 · Отнеси чешую Искре через портал."
         elseif player:GetAttribute("AtRookery") then
             objective.Text = "Исследуй гнездовье. Что там блестит в траве?"
-        elseif mana.Value >= config.PortalMana then
-            objective.Text = "Портал готов. Активируй фиолетовую арку."
-        elseif player:GetAttribute("Collected_ManaCrystal_3") then
-            objective.Text = "Ищи голубые кристаллы на поляне у рощи."
         else
-            objective.Text = "Собери кристаллы. Один спрятан в гроте у ручья."
+            objective.Text = "Погладь Искру, чтобы полететь вместе."
         end
     end
-    for _, attribute in ipairs({"AtObservatory", "ManualFlight", "LandingSite", "Flying", "AtWindIsle", "TrailStage", "FoundDawnScale", "AtRookery", "Collected_ManaCrystal_3"}) do
+    for _, attribute in ipairs({"AtObservatory", "ManualFlight", "LandingSite", "Flying", "AtWindIsle", "TrailStage", "FoundDawnScale", "AtRookery"}) do
         player:GetAttributeChangedSignal(attribute):Connect(updateMana)
     end
     mana.Changed:Connect(updateMana)
