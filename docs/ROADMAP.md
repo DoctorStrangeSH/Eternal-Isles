@@ -11,9 +11,9 @@
 - [ ] Check mobile HUD and spawn collisions.
 
 ## Milestone 1 — first fun loop
-- [ ] Functional portal to a second island, with a safe return.
+- [x] Functional portal to a second island, with a safe return.
 - [x] One collectible resource and server-side session inventory (persistence still pending).
-- [ ] One exploration quest and clear reward.
+- [x] First exploration quest: gather mana, visit the rookery and discover a golden dragon scale (session collectible).
 - [ ] Persistent player profile with safe DataStore handling.
 - [ ] One cooperative encounter, including mobile controls.
 - [ ] First-time-user tutorial, skip option and session analytics.

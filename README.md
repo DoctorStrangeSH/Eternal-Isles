@@ -6,8 +6,9 @@ A social fantasy adventure on floating islands, built with **Roblox Studio**, **
 
 ## First playable slice
 
-- A generated floating starter island with a safe spawn, grove, rune circle and portal landmark.
+- A generated floating starter island with a safe spawn, grove, rune circle and portal, stream, waterfall and crystal grotto.
 - Three mana crystals that players can gather individually with a proximity prompt.
+- Collect 15 mana to open the rookery route, pick up a golden dragon scale and use the violet return stone. Mana and the scale last for the current session.
 - A server-owned session mana counter shown in the HUD.
 - Server-authoritative day/night clock.
 - Lightweight client HUD with world time and project status.

@@ -61,8 +61,10 @@ function WorldBuilder.build()
     -- Broad, flat grass crown sits above a tapered-looking rocky underside.
     createPart(world, "FloatingRock", Vector3.new(radius * 1.78, WorldConfig.IslandThickness, radius * 1.78),
         center - Vector3.new(0, 10, 0), Color3.fromRGB(75, 73, 91), Enum.Material.Slate, Enum.PartType.Ball)
-    createPart(world, "GrassPlateau", Vector3.new(radius * 2, 12, radius * 2),
+    local plateau = createPart(world, "GrassPlateau", Vector3.new(12, radius * 2, radius * 2),
         center, Color3.fromRGB(103, 166, 105), Enum.Material.Grass, Enum.PartType.Cylinder)
+
+    plateau.Orientation = Vector3.new(0, 0, 90)
 
     -- A broken stone ring gives the spawn a readable focal point.
     for index = 1, 8 do
@@ -84,7 +86,7 @@ function WorldBuilder.build()
     spawn.Color = Color3.fromRGB(191, 224, 191)
     spawn.Parent = world
 
-    -- Portal is currently a landmark; functional travel comes in the next milestone.
+    -- The arch frames the distant rookery.
     local portalBase = createPart(world, "PortalPedestal", Vector3.new(16, 2, 16),
         center + Vector3.new(0, 7, -42), Color3.fromRGB(57, 54, 79), Enum.Material.Slate)
     createPart(world, "PortalLeft", Vector3.new(3, 18, 3), portalBase.Position + Vector3.new(-6, 10, 0),
@@ -112,13 +114,40 @@ function WorldBuilder.build()
         crown.CanCollide = false
     end
 
-    -- Three visible resources teach the first interaction immediately.
+    -- A shallow stream leads past a sheltered crystal and spills over the rim.
+    local water = Color3.fromRGB(69, 177, 190)
+    local stream = createPart(world, "Brook", Vector3.new(8, 0.4, 52),
+        center + Vector3.new(18, 6.15, -54), water, Enum.Material.Glass)
+    stream.CanCollide = false
+    local falls = createPart(world, "Waterfall", Vector3.new(8, 34, 1.5),
+        center + Vector3.new(18, -10.7, -79.5), water, Enum.Material.Glass)
+    falls.CanCollide = false
+    falls.Transparency = 0.28
+    local slate = Color3.fromRGB(80, 81, 98)
+    for _, x in ipairs({11, 25}) do
+        createPart(world, "GrottoWall", Vector3.new(4, 11, 14),
+            center + Vector3.new(x, 11.5, -57), slate, Enum.Material.Slate)
+    end
+    createPart(world, "GrottoRoof", Vector3.new(19, 4, 15),
+        center + Vector3.new(18, 19, -57), slate, Enum.Material.Slate)
+
     createCrystal(world, 1, center + Vector3.new(-28, 11, 18))
     createCrystal(world, 2, center + Vector3.new(31, 11, 14))
-    createCrystal(world, 3, center + Vector3.new(18, 11, -25))
+    createCrystal(world, 3, center + Vector3.new(18, 10, -57))
 
+    local roost = center + Vector3.new(0, 20, -152)
+    createPart(world, "RookeryCliff", Vector3.new(54, 26, 48),
+        roost - Vector3.new(0, 10, 0), slate, Enum.Material.Slate, Enum.PartType.Ball)
+    local lawn = createPart(world, "RookeryLawn", Vector3.new(6, 52, 48),
+        roost, Color3.fromRGB(81, 148, 109), Enum.Material.Grass, Enum.PartType.Cylinder)
+    lawn.Orientation = Vector3.new(0, 0, 90)
+    local beacon = createPart(world, "ReturnStone", Vector3.new(4, 7, 4),
+        roost + Vector3.new(0, 6, 12), Color3.fromRGB(151, 119, 255), Enum.Material.Neon)
+    local scale = createPart(world, "DawnScale", Vector3.new(3, 4, 1),
+        roost + Vector3.new(0, 5, -12), Color3.fromRGB(255, 190, 86), Enum.Material.Neon)
+    scale.Orientation = Vector3.new(12, 30, 20)
     workspace.FallenPartsDestroyHeight = -250
-    return world
+    return portalBase, beacon, scale, spawn
 end
 
 return WorldBuilder
