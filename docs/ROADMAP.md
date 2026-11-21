@@ -13,7 +13,9 @@
 ## Milestone 1 — first fun loop
 - [x] Functional portal to a second island, with a safe return.
 - [x] One collectible resource and server-side session inventory (persistence still pending).
-- [x] First expedition: gather 15 mana, reach the rookery, collect the golden scale and return home (session reward).
+- [x] First expedition: gather 15 mana, reach the rookery, collect the golden scale and return home.
+- [x] Befriend Iskra, ride to Wind Isle and unlock a direct flight home by collecting wind amber.
+- [ ] Verify DawnTrail milestone saves on rejoin in a published test place.
 - [ ] Persistent player profile with safe DataStore handling.
 - [ ] One cooperative encounter, including mobile controls.
 - [ ] First-time-user tutorial, skip option and session analytics.

@@ -83,8 +83,15 @@ local function bindMana()
     local mana = leaderstats:WaitForChild("Mana")
     local function updateMana()
         manaLabel.Text = string.format("✧ Мана: %d", mana.Value)
-        if player:GetAttribute("FoundDawnScale") then
-            objective.Text = player:GetAttribute("AtRookery") and "Чешуя найдена! Вернись к фиолетовому камню." or "В коллекции · Золотая чешуя дракона"
+        local stage = player:GetAttribute("TrailStage") or 0
+        if player:GetAttribute("Flying") then
+            objective.Text = "Искра ловит восходящий поток…"
+        elseif player:GetAttribute("AtWindIsle") then
+            objective.Text = stage == 3 and "Связь II · Насест открыл прямой путь домой." or "Остров Ветров · Найди золотистый янтарь."
+        elseif stage >= 2 then
+            objective.Text = player:GetAttribute("AtRookery") and "Позови Искру ещё раз для полёта на Остров Ветров." or (stage == 3 and "Связь II · Коллекция 2/2 · Чешуя и янтарь" or "Связь I · Вернись через портал к Искре.")
+        elseif player:GetAttribute("FoundDawnScale") then
+            objective.Text = player:GetAttribute("AtRookery") and "Чешуя тёплая! Покажи её дракону у камня." or "Коллекция 1/2 · Отнеси чешую Искре через портал."
         elseif player:GetAttribute("AtRookery") then
             objective.Text = "Исследуй гнездовье. Что там блестит в траве?"
         elseif mana.Value >= config.PortalMana then
@@ -95,7 +102,7 @@ local function bindMana()
             objective.Text = "Собери кристаллы. Один спрятан в гроте у ручья."
         end
     end
-    for _, attribute in ipairs({"FoundDawnScale", "AtRookery", "Collected_ManaCrystal_3"}) do
+    for _, attribute in ipairs({"Flying", "AtWindIsle", "TrailStage", "FoundDawnScale", "AtRookery", "Collected_ManaCrystal_3"}) do
         player:GetAttributeChangedSignal(attribute):Connect(updateMana)
     end
     mana.Changed:Connect(updateMana)
