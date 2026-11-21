@@ -70,6 +70,8 @@ objective.TextColor3 = title.TextColor3
 objective.Text = ""
 objective.Parent = panel
 
+require(script.Parent:WaitForChild("RelicJournal")).mount(gui, panel, player)
+
 local function updateClock()
     local seconds = remaining.Value
     local minutes = math.floor(seconds / 60)

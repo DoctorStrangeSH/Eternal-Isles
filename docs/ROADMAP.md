@@ -15,6 +15,7 @@
 - [x] One collectible resource and server-side session inventory (persistence still pending).
 - [x] First expedition: gather 15 mana, reach the rookery, collect the golden scale and return home.
 - [x] Befriend Iskra, ride to Wind Isle and unlock a direct flight home by collecting wind amber.
+- [x] In-game relic journal with discovery clues, collected lore and unlocked dragon routes.
 - [ ] Verify DawnTrail milestone saves on rejoin in a published test place.
 - [ ] Persistent player profile with safe DataStore handling.
 - [ ] One cooperative encounter, including mobile controls.
