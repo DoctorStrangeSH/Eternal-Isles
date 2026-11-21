@@ -1,6 +1,7 @@
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
+local config = require(ReplicatedStorage:WaitForChild("Shared"):WaitForChild("WorldConfig"))
 local player = Players.LocalPlayer
 local state = ReplicatedStorage:WaitForChild("WorldState")
 local phase = state:WaitForChild("Phase")
@@ -16,7 +17,7 @@ local panel = Instance.new("Frame")
 panel.Name = "WorldClockPanel"
 panel.AnchorPoint = Vector2.new(0.5, 0)
 panel.Position = UDim2.fromScale(0.5, 0.025)
-panel.Size = UDim2.new(0, 280, 0, 92)
+panel.Size = UDim2.new(0, 280, 0, 126)
 panel.BackgroundColor3 = Color3.fromRGB(22, 26, 42)
 panel.BackgroundTransparency = 0.1
 panel.Parent = gui
@@ -59,6 +60,16 @@ manaLabel.TextColor3 = Color3.fromRGB(111, 226, 235)
 manaLabel.Text = "✧ Мана: 0"
 manaLabel.Parent = panel
 
+local objective = manaLabel:Clone()
+objective.Name = "ExpeditionObjective"
+objective.Position = UDim2.fromOffset(10, 85)
+objective.Size = UDim2.new(1, -20, 0, 36)
+objective.TextWrapped = true
+objective.TextSize = 13
+objective.TextColor3 = title.TextColor3
+objective.Text = ""
+objective.Parent = panel
+
 local function updateClock()
     local seconds = remaining.Value
     local minutes = math.floor(seconds / 60)
@@ -72,6 +83,20 @@ local function bindMana()
     local mana = leaderstats:WaitForChild("Mana")
     local function updateMana()
         manaLabel.Text = string.format("✧ Мана: %d", mana.Value)
+        if player:GetAttribute("FoundDawnScale") then
+            objective.Text = player:GetAttribute("AtRookery") and "Чешуя найдена! Вернись к фиолетовому камню." or "В коллекции · Золотая чешуя дракона"
+        elseif player:GetAttribute("AtRookery") then
+            objective.Text = "Исследуй гнездовье. Что там блестит в траве?"
+        elseif mana.Value >= config.PortalMana then
+            objective.Text = "Портал готов. Активируй фиолетовую арку."
+        elseif player:GetAttribute("Collected_ManaCrystal_3") then
+            objective.Text = "Ищи голубые кристаллы на поляне у рощи."
+        else
+            objective.Text = "Собери кристаллы. Один спрятан в гроте у ручья."
+        end
+    end
+    for _, attribute in ipairs({"FoundDawnScale", "AtRookery", "Collected_ManaCrystal_3"}) do
+        player:GetAttributeChangedSignal(attribute):Connect(updateMana)
     end
     mana.Changed:Connect(updateMana)
     updateMana()
